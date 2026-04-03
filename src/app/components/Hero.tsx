@@ -1,0 +1,371 @@
+import React from "react";
+import { motion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
+// Original figma asset comment replaced with a working working image source
+const phoneImg = "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=800";
+import { useApp } from "../App";
+
+const HERO_WORDS = ["Innovation", "Excellence", "Experience"];
+
+export function Hero() {
+  const { openContact, scrollTo } = useApp();
+
+  const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
+  const [typedText, setTypedText] = React.useState("");
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
+  React.useEffect(() => {
+    const word = HERO_WORDS[currentWordIndex];
+    const typingSpeed = isDeleting ? 60 : 120; // Deletes faster
+
+    const timeout = setTimeout(() => {
+      // Pause at the end of word before deleting
+      if (!isDeleting && typedText === word) {
+        setTimeout(() => setIsDeleting(true), 2500);
+      } else if (isDeleting && typedText === "") {
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % HERO_WORDS.length);
+      } else {
+        const nextText = isDeleting 
+          ? word.substring(0, typedText.length - 1)
+          : word.substring(0, typedText.length + 1);
+        setTypedText(nextText);
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [typedText, isDeleting, currentWordIndex]);
+
+  return (
+    <section
+      id="hero"
+      className="relative overflow-hidden"
+      style={{ background: "var(--dark-bg)", minHeight: "100vh" }}
+    >
+      <div
+        className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 100% 0%, rgba(200,255,0,0.12) 0%, transparent 60%)",
+        }}
+      />
+      <div
+        className="absolute top-0 left-0 w-[400px] h-[400px] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 0% 0%, var(--neon-lime-subtle) 0%, transparent 70%)",
+        }}
+      />
+      <svg
+        className="absolute bottom-[30%] left-[3%] pointer-events-none opacity-20"
+        width="120"
+        height="120"
+        viewBox="0 0 120 120"
+        fill="none"
+      >
+        <path
+          d="M10 110 L60 10 L110 80"
+          stroke="var(--text-muted)"
+          strokeWidth="1"
+        />
+        <path
+          d="M20 100 L70 20 L100 70"
+          stroke="var(--text-muted)"
+          strokeWidth="0.5"
+        />
+      </svg>
+
+      <div className="max-w-[1240px] mx-auto px-6 pt-28 pb-8 relative z-10">
+        <div className="relative">
+          {/* Spinning badge */}
+          <div className="absolute top-0 right-0 lg:right-8 hidden md:flex items-center justify-center">
+            <div
+              className="w-[100px] h-[100px] relative"
+              style={{ animation: "spin 12s linear infinite" }}
+            >
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <defs>
+                  <path
+                    id="circlePath"
+                    d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                  />
+                </defs>
+                <text
+                  style={{
+                    fontSize: 10.5,
+                    letterSpacing: "0.06em",
+                    fill: "var(--text-white)",
+                    fontFamily: "var(--font-body)",
+                  }}
+                >
+                  <textPath href="#circlePath">
+                    Best Software Development •
+                  </textPath>
+                </text>
+              </svg>
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ animation: "spin 12s linear infinite reverse" }}
+              >
+                <button
+                  onClick={() => openContact("Book a Consultation")}
+                  className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110"
+                  style={{ background: "var(--neon-lime)", border: "none" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="4" r="2.5" fill="var(--dark-bg)" />
+                    <path
+                      d="M4 14c0-2.2 1.8-4 4-4s4 1.8 4 4"
+                      stroke="var(--dark-bg)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Headline */}
+          <div>
+            <motion.h1
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 1 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.06 },
+                },
+              }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(60px, 9vw, 105px)",
+                lineHeight: 1.0,
+                color: "var(--text-white)",
+                display: "flex",
+                overflow: "hidden",
+              }}
+            >
+              {"Digital".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: "100%" },
+                    visible: {
+                      opacity: 1,
+                      y: "0%",
+                      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                    },
+                  }}
+                  style={{ display: "inline-block", willChange: "transform, opacity" }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(64px, 10vw, 115px)",
+                lineHeight: 1.0,
+                color: "var(--neon-lime)",
+                fontStyle: "italic",
+                marginLeft: "clamp(20px, 4vw, 80px)",
+                display: "block",
+                paddingBottom: 4, // Prevents italic font clipping
+              }}
+            >
+              <span className="relative inline-flex items-center">
+                {/* Invisible placeholder to reserve maximum height and consistent baseline */}
+                <span className="opacity-0 pointer-events-none select-none">Experience</span>
+                
+                {/* Absolute positioned typing text ensures no DOM shift */}
+                <span className="absolute left-0 top-0 h-full flex items-center whitespace-nowrap">
+                  {typedText}
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
+                    style={{
+                      display: "inline-block",
+                      width: "clamp(6px, 1vw, 10px)",
+                      height: "0.8em",
+                      background: "currentColor",
+                      marginLeft: "12px",
+                      borderRadius: "2px",
+                    }}
+                  />
+                </span>
+              </span>
+            </motion.h1>
+            <p
+              className="opacity-0 mt-6"
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "clamp(16px, 2vw, 20px)",
+                color: "var(--text-muted)",
+                lineHeight: 1.6,
+                maxWidth: "600px",
+                animation: "fadeUp 0.7s ease forwards",
+                animationDelay: "0.3s",
+                marginLeft: "clamp(20px, 4vw, 80px)",
+              }}
+            >
+              Transforming bold ideas into world-class digital products through intelligent design and robust engineering.
+            </p>
+          </div>
+        </div>
+
+        {/* Below headline */}
+        <div className="flex flex-col lg:flex-row justify-between items-start mt-10 gap-8">
+          <div className="max-w-md">
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                color: "var(--text-muted)",
+                fontSize: 15,
+                lineHeight: 1.7,
+              }}
+            >
+              Easily connect your SEO-optimized{" "}
+              <br className="hidden sm:block" />
+              Content &nbsp;—&nbsp;{" "}
+              <button
+                onClick={() => scrollTo("about")}
+                className="cursor-pointer"
+                style={{
+                  color: "var(--neon-lime)",
+                  textDecoration: "underline",
+                  textUnderlineOffset: 3,
+                  background: "none",
+                  border: "none",
+                  fontFamily: "inherit",
+                  fontSize: "inherit",
+                }}
+              >
+                Helping you stay Consistent
+              </button>
+              ,<br />
+              Save time, and grow faster.
+            </p>
+
+            <div className="flex items-center gap-3 mt-7">
+              <button
+                onClick={() => openContact("Let's Talk")}
+                className="cursor-pointer rounded-full px-5 py-2.5 transition-all duration-150 hover:scale-105 hover:shadow-[0_0_20px_var(--neon-lime-glow)]"
+                style={{
+                  background: "var(--neon-lime)",
+                  color: "var(--dark-bg)",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
+                  fontSize: 14,
+                  border: "none",
+                }}
+              >
+                Let's Talk
+              </button>
+              <button
+                onClick={() => scrollTo("work")}
+                className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-white/10"
+                style={{
+                  border: "1px solid var(--border-subtle)",
+                  color: "var(--text-white)",
+                  background: "none",
+                }}
+              >
+                <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="flex -space-x-2.5">
+              {[
+                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
+                "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
+                "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
+              ].map((imgUrl, i) => (
+                <img
+                  key={i}
+                  src={imgUrl}
+                  alt={`Customer ${i + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-9 h-9 rounded-full border-2 object-cover"
+                  style={{ borderColor: "var(--dark-bg)" }}
+                />
+              ))}
+              <div
+                className="w-9 h-9 rounded-full border-2 flex items-center justify-center"
+                style={{
+                  background: "var(--dark-surface)",
+                  borderColor: "var(--dark-bg)",
+                  color: "var(--neon-lime)",
+                  fontSize: 12,
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 600,
+                }}
+              >
+                +
+              </div>
+            </div>
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  color: "var(--text-white)",
+                }}
+              >
+                We have 15k+ Customers
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                }}
+              >
+                World-wide
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Wrapper */}
+        <div className="flex justify-center mt-12 relative w-full pb-8">
+          <div
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] h-[55%] rounded-t-2xl"
+            style={{
+              background: "linear-gradient(180deg, #1a1a1a 0%, #111 100%)",
+              boxShadow: "0 -4px 60px rgba(0,0,0,0.5)",
+            }}
+          />
+          <div 
+            className="relative z-10 w-full max-w-[700px] aspect-video rounded-2xl overflow-hidden bg-black/40"
+            style={{ 
+              boxShadow: "0 20px 60px rgba(0,0,0,0.7)",
+              border: "1px solid var(--border-subtle)" 
+            }}
+          >
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/lJIrF4YjHfQ?autoplay=1&mute=1&loop=1&playlist=lJIrF4YjHfQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+              title="Short Aesthetic Hero Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+              className="w-full h-full border-none object-cover pointer-events-none"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
