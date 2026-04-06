@@ -9,6 +9,8 @@ const menuLinks = [
   { label: "Services", target: "services", hasDropdown: true },
   { label: "About Us", target: "/about" },
   { label: "Projects", target: "work" },
+
+
   { label: "Pricing", target: "/pricing" },
   { label: "Blogs", target: "blog" },
 ];
@@ -18,7 +20,13 @@ const serviceCategories = [
     title: "DESIGN",
     subtitle: "UI/UX & Creative Visuals",
     icon: Palette,
-    links: ["UI/UX Design", "Brand Identity Design", "Graphic Design", "Motion Design & Animation"]
+    links: [
+      { label: "UI/UX Design", target: "ui-ux" },
+      { label: "Brand Identity Design", target: "brand-identity" },
+      { label: "Graphic Design", target: "graphic-design" },
+      { label: "Motion Design & Animation", target: "motion-design" }
+    ]
+
   },
   {
     title: "DEVELOPMENT",
@@ -178,16 +186,28 @@ export function Navbar() {
                                     <p className="text-white/50 text-[13px] m-0 leading-relaxed pl-[52px] -mt-1">{cat.subtitle}</p>
                                   </div>
                                   <div className="flex flex-col gap-2 pl-[52px]">
-                                    {cat.links.map((sub, i) => (
-                                      <button
-                                        key={i}
-                                        onClick={() => handleNavClick("services")}
-                                        className="text-left text-white/70 hover:text-[#C8FF00] hover:bg-white/5 py-2 px-3 -mx-3 rounded-md transition-all text-[14px] bg-transparent border-none appearance-none cursor-pointer flex items-center justify-between group/link"
-                                      >
-                                        {sub}
-                                        <ArrowRight size={14} className="opacity-0 -translate-x-2 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0" />
-                                      </button>
-                                    ))}
+                                    {cat.links.map((sub, i) => {
+                                      const label = typeof sub === "string" ? sub : sub.label;
+                                      const targetId = typeof sub === "string" ? "services" : sub.target;
+                                      return (
+                                        <button
+                                          key={i}
+                                          onClick={() => {
+                                            if (cat.title === "DESIGN") {
+                                              navigate("/design");
+                                              setTimeout(() => scrollTo(targetId), 300);
+                                            } else {
+                                              handleNavClick("services");
+                                            }
+                                          }}
+                                          className="text-left text-white/70 hover:text-[#C8FF00] hover:bg-white/5 py-2 px-3 -mx-3 rounded-md transition-all text-[14px] bg-transparent border-none appearance-none cursor-pointer flex items-center justify-between group/link"
+                                        >
+                                          {label}
+                                          <ArrowRight size={14} className="opacity-0 -translate-x-2 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0" />
+                                        </button>
+                                      );
+                                    })}
+
                                   </div>
                                 </div>
                               )
@@ -317,15 +337,28 @@ export function Navbar() {
                               <p className="text-white/90 font-semibold m-0 text-[16px]">{cat.title}</p>
                             </div>
                             <div className="flex flex-col gap-1 items-start pl-6">
-                              {cat.links.map((sub, j) => (
-                                <button
-                                  key={j}
-                                  onClick={() => handleNavClick("services")}
-                                  className="text-left text-white/50 text-[14px] hover:text-[#C8FF00] bg-transparent border-none py-1.5 cursor-pointer transition-colors"
-                                >
-                                  {sub}
-                                </button>
-                              ))}
+                              {cat.links.map((sub, j) => {
+                                const label = typeof sub === "string" ? sub : sub.label;
+                                const targetId = typeof sub === "string" ? "services" : sub.target;
+                                return (
+                                  <button
+                                    key={j}
+                                    onClick={() => {
+                                      if (cat.title === "DESIGN") {
+                                        navigate("/design");
+                                        setOpenMobile(false);
+                                        setTimeout(() => scrollTo(targetId), 300);
+                                      } else {
+                                        handleNavClick("services");
+                                      }
+                                    }}
+                                    className="text-left text-white/50 text-[14px] hover:text-[#C8FF00] bg-transparent border-none py-1.5 cursor-pointer transition-colors"
+                                  >
+                                    {label}
+                                  </button>
+                                );
+                              })}
+
                             </div>
                           </div>
                         )

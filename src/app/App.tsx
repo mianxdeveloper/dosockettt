@@ -18,6 +18,8 @@ const Footer = lazy(() => import("./components/Footer").then(m => ({ default: m.
 const ContactModal = lazy(() => import("./components/ContactModal").then(m => ({ default: m.ContactModal })));
 const CookieConsent = lazy(() => import("./components/CookieConsent").then(m => ({ default: m.CookieConsent })));
 const Chatbot = lazy(() => import("./components/Chatbot").then(m => ({ default: m.Chatbot })));
+const Design = lazy(() => import("./components/Design").then(m => ({ default: m.Design })));
+
 
 interface AppContextType {
   openContact: (title?: string) => void;
@@ -155,6 +157,14 @@ export default function App() {
               </div>
             </Suspense>
           } />
+          <Route path="/design" element={
+            <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+              <div style={{ minHeight: "80vh" }}>
+                <Design />
+              </div>
+            </Suspense>
+          } />
+
         </Routes>
         <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
           <FooterCTA />
