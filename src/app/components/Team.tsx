@@ -2,42 +2,53 @@ import { motion, type Variants } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Linkedin, Instagram } from "lucide-react";
 
+import abdullahImg from "../../assets/abdullah.jpeg";
+import qasimImg from "../../assets/qasim.jpeg";
+import abdulrehmanImg from "../../assets/abdulrehman.jpeg";
+import basitImg from "../../assets/basit.jpeg";
+import sameerImg from "../../assets/sameer.jpeg";
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
   }
 };
 
 const teamMembers = [
   {
-    name: "Alex Sterling",
-    role: "CEO & Founder",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800&h=800",
+    name: "Abdullah al Mahin",
+    role: "Team Member",
+    image: abdullahImg,
   },
   {
-    name: "Sarah Jenkins",
-    role: "Head of Design",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800&h=800",
+    name: "Qasim Ali",
+    role: "Team Member",
+    image: qasimImg,
   },
   {
-    name: "Marcus Cole",
-    role: "Lead Engineer",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800&h=800",
+    name: "Abdul Rehman",
+    role: "Team Member",
+    image: abdulrehmanImg,
   },
   {
-    name: "Elena Rostova",
-    role: "Product Manager",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800&h=800",
+    name: "Abdul Basit",
+    role: "Team Member",
+    image: basitImg,
+  },
+  {
+    name: "Sameer Shayan",
+    role: "Team Member",
+    image: sameerImg,
   }
 ];
 
 export function Team() {
   return (
     <section id="team" className="py-24" style={{ background: "var(--dark-bg)" }}>
-      <motion.div 
+      <motion.div
         className="max-w-[1240px] mx-auto px-6"
         initial="hidden"
         whileInView="visible"
@@ -58,22 +69,23 @@ export function Team() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {teamMembers.map((member, idx) => (
-            <motion.div 
-              key={idx} 
-              variants={fadeUp} 
+            <motion.div
+              key={idx}
+              variants={fadeUp}
               whileHover={{ y: -8, transition: { duration: 0.2, ease: "easeOut" } }}
-              className="group relative rounded-2xl overflow-hidden" 
+              className="group relative rounded-2xl overflow-hidden"
               style={{ border: "1px solid var(--border-subtle)", background: "var(--dark-surface)", willChange: "transform, opacity" }}
             >
               <div className="relative w-full aspect-square overflow-hidden">
-                <ImageWithFallback 
-                  src={member.image} 
-                  alt={member.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                <ImageWithFallback
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{ objectPosition: "top" }}
                 />
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 backdrop-blur-sm"
                   style={{ background: "rgba(0,0,0,0.5)" }}
                 >
