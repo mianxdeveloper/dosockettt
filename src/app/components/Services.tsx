@@ -4,7 +4,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useApp } from "../App";
 
 const AVATAR = "https://images.unsplash.com/photo-1629507208649-70919ca33793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMG1hbiUyMHN1aXQlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbHxlbnwxfHx8fDE3NzQ5ODE5NDV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const SCULPTURE = "https://images.unsplash.com/photo-1651443428704-477074136d6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXJrJTIwc3RhdHVlJTIwc2N1bHB0dXJlJTIwYXJ0fGVufDF8fHx8MTc3NDk4MTk0NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+const SCULPTURE = "/sculpture.png";
 
 const faqs = [
   { q: "01. What is your core UX & branding process?", a: "We start with deep discovery, move to strategic wireframing, then visual design, and finally rigorous testing. Our process is iterative and collaborative." },

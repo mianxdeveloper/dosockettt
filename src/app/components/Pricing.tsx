@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, type Variants, AnimatePresence } from "motion/react";
 import { Check, ChevronDown, ChevronUp, X } from "lucide-react";
 import Tilt from "react-parallax-tilt";
+import { useApp } from "../App";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -139,6 +140,7 @@ const comparisonData = [
 ];
 
 export function Pricing() {
+  const { openContact } = useApp();
   const [expandedCards, setExpandedCards] = useState<Record<number, boolean>>({});
   const [cardHeights, setCardHeights] = useState<Record<number, number>>({});
   const cardRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -311,7 +313,13 @@ export function Pricing() {
                       )}
                     </div>
 
-                    <button className="mt-10 w-full py-4 rounded-full font-bold transition-transform hover:scale-[1.02]"
+                    <button 
+                      onClick={() => openContact(`Book a Free Call - ${plan.name}`)}
+                      className={`mt-10 w-full py-4 rounded-full font-bold transition-all duration-300 hover:scale-[1.03] ${
+                        plan.popular 
+                          ? "hover:shadow-[0_0_25px_rgba(200,255,0,0.4)]" 
+                          : "hover:bg-white/5 hover:border-white/30"
+                      }`}
                       style={{
                         background: plan.popular ? "var(--neon-lime)" : "transparent",
                         color: plan.popular ? "#000" : "var(--text-white)",

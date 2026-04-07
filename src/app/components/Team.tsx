@@ -20,28 +20,39 @@ const fadeUp: Variants = {
 const teamMembers = [
   {
     name: "Abdullah al Mahin",
-    role: "Team Member",
+    role: "Sr. Team Lead Manager",
     image: abdullahImg,
+    linkedin: "https://linkedin.in/in/mahinflux/",
   },
   {
     name: "Qasim Ali",
-    role: "Team Member",
+    role: "CEO and Founder",
     image: qasimImg,
+    linkedin: "https://www.linkedin.com/in/icuxqasimali/",
   },
   {
     name: "Abdul Rehman",
-    role: "Team Member",
+    role: "Sr. Front End Developer",
     image: abdulrehmanImg,
+    linkedin: "https://www.linkedin.com/in/mianxdeveloper/",
   },
   {
     name: "Abdul Basit",
-    role: "Team Member",
+    role: "Marketing Manager",
     image: basitImg,
+    linkedin: "https://www.linkedin.com/in/abdul-basit-4983a7281",
   },
   {
     name: "Sameer Shayan",
-    role: "Team Member",
+    role: "Sales Manager",
     image: sameerImg,
+    linkedin: "https://www.linkedin.com/in/sameer-shayan-174407278",
+  },
+  {
+    name: "Eric",
+    role: "Digital Marketing Manager",
+    image: "https://avatar.iran.liara.run/public/boy?username=Eric",
+    linkedin: "#",
   }
 ];
 
@@ -86,14 +97,17 @@ export function Team() {
                   style={{ objectPosition: "top" }}
                 />
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 backdrop-blur-sm"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm"
                   style={{ background: "rgba(0,0,0,0.5)" }}
                 >
-                  <a href="#" className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#C8FF00] hover:text-black transition-colors" style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}>
-                    <Instagram size={18} />
-                  </a>
-                  <a href="#" className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#C8FF00] hover:text-black transition-colors" style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}>
-                    <Linkedin size={18} />
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-full flex items-center justify-center hover:bg-[#C8FF00] hover:text-black transition-all duration-300 transform scale-90 group-hover:scale-100"
+                    style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
+                  >
+                    <Linkedin size={22} />
                   </a>
                 </div>
               </div>

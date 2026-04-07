@@ -105,7 +105,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           </div>
         ) : (
           <div className="flex-1 w-full max-w-[480px] mx-auto mt-4 pb-12 flex flex-col justify-center min-h-max">
-            <h3 className="mb-6" style={{ fontFamily: "var(--font-display)", fontWeight: 500, fontSize: "clamp(22px, 3.5vw, 28px)", color: "var(--text-white)", lineHeight: 1.3, maxWidth: "90%" }}>
+            <h3 className="mb-6" style={{ fontFamily: "var(--font-display)", fontWeight: 500, fontSize: "clamp(20px, 3vw, 24px)", color: "var(--text-white)", lineHeight: 1.3, maxWidth: "90%" }}>
               Get in touch to find out<br />how we can collaborate.
             </h3>
 
@@ -121,7 +121,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-2xl px-4 py-3 outline-none transition-all duration-200 focus:ring-2 focus:ring-[var(--neon-lime)]/30"
+                    className="w-full rounded-2xl px-4 py-3 outline-none transition-all duration-200 focus:border-[#C8FF00] focus:ring-2 focus:ring-[#C8FF00]/20"
                     style={{
                       background: "var(--dark-bg)",
                       border: "1px solid var(--border-subtle)",
@@ -140,7 +140,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     required
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full rounded-2xl px-4 py-3 outline-none transition-all duration-200 focus:ring-2 focus:ring-[var(--neon-lime)]/30"
+                    className="w-full rounded-2xl px-4 py-3 outline-none transition-all duration-200 focus:border-[#C8FF00] focus:ring-2 focus:ring-[#C8FF00]/20"
                     style={{
                       background: "var(--dark-bg)",
                       border: "1px solid var(--border-subtle)",
@@ -161,7 +161,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-2xl px-4 py-3 outline-none transition-all duration-200 focus:ring-2 focus:ring-[var(--neon-lime)]/30"
+                  className="w-full rounded-2xl px-4 py-3 outline-none transition-all duration-200 focus:border-[#C8FF00] focus:ring-2 focus:ring-[#C8FF00]/20"
                   style={{
                     background: "var(--dark-bg)",
                     border: "1px solid var(--border-subtle)",
@@ -216,7 +216,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   rows={2}
                   value={formData.projectDetails}
                   onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
-                  className="w-full rounded-[20px] px-4 py-3 outline-none resize-none transition-all duration-200 focus:ring-2 focus:ring-[var(--neon-lime)]/30"
+                  className="w-full rounded-[20px] px-4 py-3 outline-none resize-none transition-all duration-200 focus:border-[#C8FF00] focus:ring-2 focus:ring-[#C8FF00]/20"
                   style={{
                     background: "var(--dark-bg)",
                     border: "1px solid var(--border-subtle)",
@@ -227,54 +227,54 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </div>
 
               {/* Footer Actions */}
-              <div className="mt-4 flex items-end justify-between">
-                <div className="flex items-center gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+                <div className="flex-1 w-full flex items-center gap-2">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 disabled:opacity-60 rounded-full px-6 py-3"
+                    className="flex-1 flex items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-[0_0_20px_var(--neon-lime-glow)] hover:bg-[#C8FF00] hover:text-black disabled:opacity-60 rounded-full h-14"
                     style={{
                       background: "var(--dark-elevated)",
                       color: "var(--text-white)",
                       border: "1px solid var(--border-subtle)",
-                      fontWeight: 500,
-                      fontSize: 15,
+                      fontWeight: 700,
+                      fontSize: 16,
+                      fontFamily: "var(--font-display)",
                     }}
                   >
-                    Submit
+                    {loading ? (
+                      <div className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: "var(--text-white)", borderTopColor: "transparent" }} />
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex items-center justify-center w-12 h-12 rounded-full cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-[0_0_20px_var(--neon-lime-glow)] disabled:opacity-60"
+                    className="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-[#C8FF00] hover:text-black hover:shadow-[0_0_20px_var(--neon-lime-glow)] disabled:opacity-60"
                     style={{
                       background: "var(--text-white)",
                       color: "var(--dark-bg)",
                       border: "none",
                     }}
                   >
-                    {loading ? (
-                      <div className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: "var(--dark-bg)", borderTopColor: "transparent" }} />
-                    ) : (
-                      <ArrowRight size={20} />
-                    )}
+                    <ArrowRight size={20} />
                   </button>
                 </div>
-
-                <div className="flex flex-col items-end gap-1">
-                  <span className="text-[12px] mr-2" style={{ color: "var(--text-muted)" }}>Not yet sure?</span>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="px-5 py-2 rounded-full text-[13px] transition-all hover:bg-white/5 border font-medium"
-                    style={{ 
-                      borderColor: "var(--border-subtle)", 
-                      color: "var(--text-white)",
-                    }}
-                  >
-                    Book an intro call
-                  </button>
-                </div>
+                
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="flex-1 w-full h-14 rounded-full text-[16px] transition-all hover:bg-[#C8FF00] hover:text-black hover:shadow-[0_0_20px_var(--neon-lime-glow)] border font-bold"
+                  style={{ 
+                    borderColor: "var(--border-subtle)", 
+                    color: "var(--text-white)",
+                    fontFamily: "var(--font-display)",
+                    background: "transparent"
+                  }}
+                >
+                  Book Intro Call
+                </button>
               </div>
 
             </form>

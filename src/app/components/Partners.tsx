@@ -69,7 +69,7 @@ export function Partners() {
                 <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--dark-bg)", fontSize: 16 }}>Opal</span>
               </div>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--dark-bg)", fontSize: 13, lineHeight: 1.5, opacity: 0.8 }}>
-                I'm extremely satisfied working with Pixelency. The design quality was top-notch everything.
+                I'm extremely satisfied working with Dosocket. The design quality was top-notch everything.
               </p>
             </div>
             <div className="flex items-center gap-2 mt-4">

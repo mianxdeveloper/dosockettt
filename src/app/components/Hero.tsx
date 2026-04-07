@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { motion } from 'motion/react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useApp } from '../App'
 // Original figma asset comment replaced with a working working image source
 const phoneImg =
@@ -10,6 +11,7 @@ const HERO_WORDS = ['Innovation', 'Excellence', 'Experience']
 
 export function Hero() {
   const { openContact, scrollTo } = useApp()
+  const navigate = useNavigate()
 
   const [currentWordIndex, setCurrentWordIndex] = React.useState(0)
   const [typedText, setTypedText] = React.useState('')
@@ -240,31 +242,46 @@ export function Hero() {
               Save time, and grow faster.
             </p>
 
-            <div className="flex items-center gap-3 mt-7">
+            <div className="flex items-center gap-2 mt-7">
               <button
                 onClick={() => openContact("Let's Talk")}
-                className="cursor-pointer rounded-full px-5 py-2.5 transition-all duration-150 hover:scale-105 hover:shadow-[0_0_20px_var(--neon-lime-glow)]"
+                className="group relative cursor-pointer rounded-full px-5 py-3 transition-all duration-300 flex items-center gap-3 overflow-hidden bg-[var(--neon-lime)] hover:bg-black shadow-[0_0_20px_rgba(200,255,0,0.15)] hover:shadow-[0_0_25px_var(--neon-lime-glow)] border-none"
                 style={{
-                  background: 'var(--neon-lime)',
-                  color: 'var(--dark-bg)',
                   fontFamily: 'var(--font-display)',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontSize: 14,
-                  border: 'none',
+                  lineHeight: 1
                 }}
               >
-                Let's Talk
+                <div 
+                  className="w-7 h-7 rounded-full bg-white flex items-center justify-center relative overflow-hidden shrink-0 transition-colors duration-300 group-hover:bg-[#1a1a1a]"
+                >
+                  <svg 
+                    viewBox="0 0 14 15" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="w-3.5 h-3.5 text-[#C8FF00] transition-transform duration-300 ease-in-out group-hover:translate-x-[150%] group-hover:-translate-y-[150%]"
+                  >
+                    <path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor" />
+                  </svg>
+                  <svg 
+                    viewBox="0 0 14 15" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="w-3.5 h-3.5 text-[#C8FF00] absolute -translate-x-[150%] translate-y-[150%] transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:translate-y-0"
+                  >
+                    <path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor" />
+                  </svg>
+                </div>
+                <span className="relative z-10 text-[var(--dark-bg)] group-hover:text-white transition-colors duration-300">
+                  Let's Talk
+                </span>
               </button>
               <button
-                onClick={() => scrollTo('work')}
-                className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-white/10"
-                style={{
-                  border: '1px solid var(--border-subtle)',
-                  color: 'var(--text-white)',
-                  background: 'none',
-                }}
+                onClick={() => navigate('/projects')}
+                className="cursor-pointer rounded-full px-5 py-3 transition-all duration-300 hover:bg-[#C8FF00] hover:text-black hover:border-[#C8FF00] border border-[var(--border-subtle)] text-[var(--text-white)] bg-transparent font-semibold font-[var(--font-display)] text-[14px]"
               >
-                <ArrowUpRight size={16} />
+                See Projects
               </button>
             </div>
           </div>

@@ -26,7 +26,7 @@
   --border-hover: rgba(200, 255, 0, 0.3);
 
   /* Change the global font here in a single click! */
-  --font-main: 'Outfit', sans-serif;
+  --font-main: 'Open Sans', sans-serif;
   --font-display: var(--font-main);
   --font-body: var(--font-main);
 

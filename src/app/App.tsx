@@ -21,6 +21,7 @@ const Chatbot = lazy(() => import("./components/Chatbot").then(m => ({ default: 
 const Design = lazy(() => import("./components/Design").then(m => ({ default: m.Design })));
 const Development = lazy(() => import("./components/Development").then(m => ({ default: m.Development })));
 const DigitalMarketing = lazy(() => import("./components/DigitalMarketing").then(m => ({ default: m.DigitalMarketing })));
+const ProjectsPage = lazy(() => import("./components/ProjectsPage").then(m => ({ default: m.ProjectsPage })));
 const DetailModal = lazy(() => import("./components/DetailModal").then(m => ({ default: m.DetailModal })));
 
 
@@ -148,7 +149,6 @@ export default function App() {
               <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
                 <Ticker />
                 <ValueProp />
-                <Portfolio />
                 <Testimonials />
                 {/* <Partners /> */}
                 <Services />
@@ -162,6 +162,11 @@ export default function App() {
                 <About />
                 <Team />
               </div>
+            </Suspense>
+          } />
+          <Route path="/projects" element={
+            <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+              <ProjectsPage />
             </Suspense>
           } />
           <Route path="/pricing" element={

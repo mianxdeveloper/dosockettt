@@ -20,7 +20,7 @@ export function FooterCTA() {
           </div>
           <button
             onClick={() => openContact("Get in Touch")}
-            className="cursor-pointer rounded-full px-7 py-3 transition-all duration-150 hover:scale-105 hover:shadow-[0_0_24px_var(--neon-lime-glow)] shrink-0"
+            className="cursor-pointer rounded-full px-7 py-3 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_24px_var(--neon-lime-glow)] shrink-0"
             style={{ background: "var(--neon-lime)", color: "var(--dark-bg)", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, border: "none" }}
           >
             Get in Touch
