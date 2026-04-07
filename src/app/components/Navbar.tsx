@@ -1,36 +1,49 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, ArrowRight, Twitter, Dribbble, Instagram, Linkedin, ChevronDown, Layers, Palette, Rocket, Laptop, Code, Megaphone } from "lucide-react";
-import { useApp } from "../App";
+import {
+  ArrowRight,
+  ChevronDown,
+  Code,
+  Dribbble,
+  Instagram,
+  Linkedin,
+  Megaphone,
+  Menu,
+  Palette,
+  Twitter,
+  X,
+} from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useApp } from '../App'
 
 const menuLinks = [
-  { label: "Home", target: "/" },
-  { label: "Services", target: "services", hasDropdown: true },
-  { label: "About Us", target: "/about" },
-  { label: "Projects", target: "work" },
+  { label: 'Home', target: '/' },
 
+  // Navigation link problem in desktop mode , when clicking on it hides the hover menu . it should be work on dektop on both hover and click . in mobile it should work on click only .
 
-  { label: "Pricing", target: "/pricing" },
-  { label: "Blogs", target: "blog" },
-];
+  { label: 'Services', target: '', hasDropdown: true },
+  { label: 'About Us', target: '/about' },
+  { label: 'Projects', target: 'work' },
+
+  { label: 'Pricing', target: '/pricing' },
+  { label: 'Blogs', target: 'blog' },
+]
 
 const serviceCategories = [
   {
-    title: "DESIGN",
-    subtitle: "UI/UX & Creative Visuals",
+    title: 'DESIGN',
+    subtitle: 'UI/UX & Creative Visuals',
     icon: Palette,
     links: [
-      { label: "UI/UX Design", target: "ui-ux" },
-      { label: "Brand Identity Design", target: "brand-identity" },
-      { label: "Graphic Design", target: "graphic-design" },
-      { label: "Motion Design & Animation", target: "motion-design" }
-    ]
-
+      { label: 'UI/UX Design', target: 'ui-ux' },
+      { label: 'Brand Identity Design', target: 'brand-identity' },
+      { label: 'Graphic Design', target: 'graphic-design' },
+      { label: 'Motion Design & Animation', target: 'motion-design' },
+    ],
   },
   {
-    title: "DEVELOPMENT",
-    subtitle: "Web & Mobile Solutions",
+    title: 'DEVELOPMENT',
+    subtitle: 'Web & Mobile Solutions',
     icon: Code,
     links: [
       { label: "Web Design & Development", target: "web-architecture" },
@@ -42,8 +55,8 @@ const serviceCategories = [
     ]
   },
   {
-    title: "DIGITAL MARKETING",
-    subtitle: "Growth & Strategy",
+    title: 'DIGITAL MARKETING',
+    subtitle: 'Growth & Strategy',
     icon: Megaphone,
     links: [
       { label: "Search Engine Optimization (SEO)", target: "seo" },
@@ -52,64 +65,66 @@ const serviceCategories = [
       { label: "Content Marketing & Copywriting", target: "content-copywriting" },
       { label: "Email Marketing", target: "digital-strategy" },
       { label: "Digital Strategy", target: "digital-strategy" }
-    ]
-  }
-];
+    ],
+  },
+]
 
 const socials = [
-  { icon: Twitter, label: "X", url: "https://twitter.com" },
-  { icon: Dribbble, label: "Dribbble", url: "https://dribbble.com" },
-  { icon: Instagram, label: "Instagram", url: "https://instagram.com" },
-  { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com" },
-];
+  { icon: Twitter, label: 'X', url: 'https://twitter.com' },
+  { icon: Dribbble, label: 'Dribbble', url: 'https://dribbble.com' },
+  { icon: Instagram, label: 'Instagram', url: 'https://instagram.com' },
+  { icon: Linkedin, label: 'LinkedIn', url: 'https://linkedin.com' },
+]
 
 export function Navbar() {
-  const { openContact, scrollTo } = useApp();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
-  const [openMobile, setOpenMobile] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { openContact, scrollTo } = useApp()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [scrolled, setScrolled] = useState(false)
+  const [openMobile, setOpenMobile] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
+    const fn = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
 
   useEffect(() => {
-    document.body.style.overflow = openMobile ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [openMobile]);
+    document.body.style.overflow = openMobile ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [openMobile])
 
   const handleNavClick = (target: string) => {
-    setOpenMobile(false);
-    setActiveDropdown(null);
-    if (target === "contact") {
-      openContact("Let's Talk");
-    } else if (target === "/") {
-      if (location.pathname === "/") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    setOpenMobile(false)
+    setActiveDropdown(null)
+    if (target === 'contact') {
+      openContact("Let's Talk")
+    } else if (target === '/') {
+      if (location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
-        navigate("/");
-        window.scrollTo(0, 0);
+        navigate('/')
+        window.scrollTo(0, 0)
       }
-    } else if (target.startsWith("/")) {
+    } else if (target.startsWith('/')) {
       if (location.pathname === target) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
-        navigate(target);
-        window.scrollTo(0, 0);
+        navigate(target)
+        window.scrollTo(0, 0)
       }
     } else {
-      if (location.pathname !== "/") {
-        navigate("/");
-        setTimeout(() => scrollTo(target), 300);
+      if (location.pathname !== '/') {
+        navigate('/')
+        setTimeout(() => scrollTo(target), 300)
       } else {
-        setTimeout(() => scrollTo(target), 100);
+        setTimeout(() => scrollTo(target), 100)
       }
     }
-  };
+  }
 
   return (
     <>
@@ -119,22 +134,30 @@ export function Navbar() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 w-full z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(10,10,10,0.9)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
-          willChange: "transform, opacity",
-          fontFamily: "var(--font-main)",
-          borderBottomLeftRadius: scrolled ? "24px" : "0px",
-          borderBottomRightRadius: scrolled ? "24px" : "0px",
+          background: scrolled ? 'rgba(10,10,10,0.9)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
+          willChange: 'transform, opacity',
+          fontFamily: 'var(--font-main)',
+          borderBottomLeftRadius: scrolled ? '24px' : '0px',
+          borderBottomRightRadius: scrolled ? '24px' : '0px',
         }}
       >
-        <div className={`w-full max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between relative transition-all duration-300 ${scrolled ? 'h-[64px] lg:h-[76px]' : 'h-[80px] lg:h-[100px]'}`}>
-
+        <div
+          className={`w-full max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between relative transition-all duration-300 ${scrolled ? 'h-[64px] lg:h-[76px]' : 'h-[80px] lg:h-[100px]'}`}
+        >
           {/* Logo - Left */}
           <button
-            onClick={() => handleNavClick("/")}
+            onClick={() => handleNavClick('/')}
             className="flex items-center gap-1.5 cursor-pointer z-10 shrink-0"
-            style={{ fontWeight: 800, fontSize: "clamp(20px, 2vw, 24px)", color: "#fff", background: "none", border: "none", fontFamily: "var(--font-main)" }}
+            style={{
+              fontWeight: 800,
+              fontSize: 'clamp(20px, 2vw, 24px)',
+              color: '#fff',
+              background: 'none',
+              border: 'none',
+              fontFamily: 'var(--font-main)',
+            }}
           >
             Dosocket
             <span className="w-2 h-2 rounded-full bg-[#C8FF00] inline-block" />
@@ -154,15 +177,18 @@ export function Navbar() {
                     onClick={() => handleNavClick(link.target)}
                     className="flex items-center gap-1.5 text-[16px] font-medium transition-colors duration-200 cursor-pointer h-full relative"
                     style={{
-                      color: "#fff",
-                      background: "none",
-                      border: "none",
-                      fontFamily: "var(--font-main)"
+                      color: '#fff',
+                      background: 'none',
+                      border: 'none',
+                      fontFamily: 'var(--font-main)',
                     }}
                   >
                     <span className="hover:text-[#C8FF00] transition-colors">{link.label}</span>
                     {link.hasDropdown && (
-                      <ChevronDown size={14} className={`transition-transform duration-300 ${activeDropdown === link.label ? "rotate-180 text-[#C8FF00]" : "text-white/70"}`} />
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180 text-[#C8FF00]' : 'text-white/70'}`}
+                      />
                     )}
                   </button>
 
@@ -177,15 +203,15 @@ export function Navbar() {
                           transition={{ duration: 0.2 }}
                           className="absolute top-[100%] left-1/2 -translate-x-1/2 w-[1000px] max-w-[90vw] p-8 rounded-2xl shadow-2xl overflow-hidden cursor-default"
                           style={{
-                            background: "rgba(15,15,15,0.98)",
-                            backdropFilter: "blur(20px)",
-                            border: "1px solid rgba(255,255,255,0.05)",
-                            fontFamily: "var(--font-main)"
+                            background: 'rgba(15,15,15,0.98)',
+                            backdropFilter: 'blur(20px)',
+                            border: '1px solid rgba(255,255,255,0.05)',
+                            fontFamily: 'var(--font-main)',
                           }}
                         >
                           <div className="grid grid-cols-3 gap-6">
                             {serviceCategories.map((cat, idx) => {
-                              const IconDef = cat.icon;
+                              const IconDef = cat.icon
                               return (
                                 <div key={idx} className="flex flex-col group/col">
                                   <div className="mb-4">
@@ -207,12 +233,15 @@ export function Navbar() {
                                         {cat.title}
                                       </button>
                                     </div>
-                                    <p className="text-white/50 text-[13px] m-0 leading-relaxed pl-[52px] -mt-1">{cat.subtitle}</p>
+                                    <p className="text-white/50 text-[13px] m-0 leading-relaxed pl-[52px] -mt-1">
+                                      {cat.subtitle}
+                                    </p>
                                   </div>
                                   <div className="flex flex-col gap-2 pl-[52px]">
                                     {cat.links.map((sub, i) => {
-                                      const label = typeof sub === "string" ? sub : sub.label;
-                                      const targetId = typeof sub === "string" ? "services" : sub.target;
+                                      const label = typeof sub === 'string' ? sub : sub.label
+                                      const targetId =
+                                        typeof sub === 'string' ? 'services' : sub.target
                                       return (
                                         <button
                                           key={i}
@@ -227,17 +256,19 @@ export function Navbar() {
                                               navigate("/digital-marketing");
                                               setTimeout(() => scrollTo(targetId), 300);
                                             } else {
-                                              handleNavClick("services");
+                                              handleNavClick('services')
                                             }
                                           }}
                                           className="text-left text-white/70 hover:text-[#C8FF00] hover:bg-white/5 py-2 px-3 -mx-3 rounded-md transition-all text-[14px] bg-transparent border-none appearance-none cursor-pointer flex items-center justify-between group/link"
                                         >
                                           {label}
-                                          <ArrowRight size={14} className="opacity-0 -translate-x-2 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0" />
+                                          <ArrowRight
+                                            size={14}
+                                            className="opacity-0 -translate-x-2 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0"
+                                          />
                                         </button>
-                                      );
+                                      )
                                     })}
-
                                   </div>
                                 </div>
                               )
@@ -255,15 +286,15 @@ export function Navbar() {
           {/* Contact Button & Mobile Toggle - Right */}
           <div className="flex items-center gap-4 z-10 shrink-0">
             <button
-              onClick={() => handleNavClick("contact")}
+              onClick={() => handleNavClick('contact')}
               className="hidden lg:inline-flex items-center justify-center rounded-full px-8 py-3 transition-all duration-300 hover:scale-105 cursor-pointer"
               style={{
-                background: "#C8FF00",
-                color: "#000",
+                background: '#C8FF00',
+                color: '#000',
                 fontWeight: 600,
                 fontSize: 15,
-                border: "none",
-                fontFamily: "var(--font-main)"
+                border: 'none',
+                fontFamily: 'var(--font-main)',
               }}
             >
               Let's Talk
@@ -273,10 +304,10 @@ export function Navbar() {
               onClick={() => setOpenMobile(!openMobile)}
               className="lg:hidden w-11 h-11 flex items-center justify-center cursor-pointer transition-all duration-200"
               style={{
-                background: openMobile ? "#C8FF00" : "rgba(255,255,255,0.05)",
-                color: openMobile ? "#000" : "#fff",
-                borderRadius: "50%",
-                border: "1px solid rgba(255,255,255,0.1)"
+                background: openMobile ? '#C8FF00' : 'rgba(255,255,255,0.05)',
+                color: openMobile ? '#000' : '#fff',
+                borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.1)',
               }}
             >
               {openMobile ? <X size={20} strokeWidth={2.5} /> : <Menu size={20} strokeWidth={2} />}
@@ -289,10 +320,10 @@ export function Navbar() {
       <div
         className="fixed inset-0 z-[60] transition-opacity duration-300 lg:hidden"
         style={{
-          background: "rgba(0,0,0,0.8)",
-          backdropFilter: "blur(5px)",
+          background: 'rgba(0,0,0,0.8)',
+          backdropFilter: 'blur(5px)',
           opacity: openMobile ? 1 : 0,
-          pointerEvents: openMobile ? "auto" : "none",
+          pointerEvents: openMobile ? 'auto' : 'none',
         }}
         onClick={() => setOpenMobile(false)}
       />
@@ -301,16 +332,28 @@ export function Navbar() {
       <aside
         className="fixed top-0 left-0 h-full z-[70] flex flex-col transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.8,0.25,1)] lg:hidden"
         style={{
-          width: "min(400px, 85vw)",
-          background: "#0a0a0a",
-          borderRight: "1px solid rgba(255,255,255,0.05)",
-          transform: openMobile ? "translateX(0)" : "translateX(-100%)",
-          fontFamily: "var(--font-main)"
+          width: 'min(400px, 85vw)',
+          background: '#0a0a0a',
+          borderRight: '1px solid rgba(255,255,255,0.05)',
+          transform: openMobile ? 'translateX(0)' : 'translateX(-100%)',
+          fontFamily: 'var(--font-main)',
         }}
       >
         <div className="flex items-center justify-between px-6 pt-8 pb-4 border-b border-white/5">
-          <button onClick={() => handleNavClick("/")} className="flex items-center gap-1.5 cursor-pointer bg-transparent border-none">
-            <span style={{ fontWeight: 800, fontSize: 20, color: "#fff", fontFamily: "var(--font-main)" }}>Dosocket</span>
+          <button
+            onClick={() => handleNavClick('/')}
+            className="flex items-center gap-1.5 cursor-pointer bg-transparent border-none"
+          >
+            <span
+              style={{
+                fontWeight: 800,
+                fontSize: 20,
+                color: '#fff',
+                fontFamily: 'var(--font-main)',
+              }}
+            >
+              Dosocket
+            </span>
             <span className="w-2 h-2 rounded-full bg-[#C8FF00] inline-block" />
           </button>
           <button
@@ -327,26 +370,29 @@ export function Navbar() {
               <button
                 onClick={() => {
                   if (link.hasDropdown && activeDropdown !== link.label) {
-                    setActiveDropdown(link.label);
+                    setActiveDropdown(link.label)
                   } else if (link.hasDropdown && activeDropdown === link.label) {
-                    setActiveDropdown(null);
+                    setActiveDropdown(null)
                   } else {
-                    handleNavClick(link.target);
+                    handleNavClick(link.target)
                   }
                 }}
                 className="w-full flex items-center justify-between py-4 border-b border-white/10 text-left transition-colors cursor-pointer"
                 style={{
                   fontSize: 22,
                   fontWeight: 600,
-                  color: activeDropdown === link.label ? "#C8FF00" : "#fff",
-                  background: "none",
-                  borderStyle: "none none solid none",
-                  fontFamily: "var(--font-main)"
+                  color: activeDropdown === link.label ? '#C8FF00' : '#fff',
+                  background: 'none',
+                  borderStyle: 'none none solid none',
+                  fontFamily: 'var(--font-main)',
                 }}
               >
                 <span className="hover:text-[#C8FF00] transition-colors">{link.label}</span>
                 {link.hasDropdown && (
-                  <ChevronDown size={20} className={`transition-transform duration-300 ${activeDropdown === link.label ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    size={20}
+                    className={`transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180' : ''}`}
+                  />
                 )}
               </button>
               {link.hasDropdown && (
@@ -354,12 +400,12 @@ export function Navbar() {
                   {activeDropdown === link.label && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
+                      animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden flex flex-col gap-4 pt-4"
                     >
                       {serviceCategories.map((cat, i) => {
-                        const IconDef = cat.icon;
+                        const IconDef = cat.icon
                         return (
                           <div key={i} className="pl-4 border-l border-white/10 mb-2">
                             <button 
@@ -378,8 +424,8 @@ export function Navbar() {
                             </button>
                             <div className="flex flex-col gap-1 items-start pl-6">
                               {cat.links.map((sub, j) => {
-                                const label = typeof sub === "string" ? sub : sub.label;
-                                const targetId = typeof sub === "string" ? "services" : sub.target;
+                                const label = typeof sub === 'string' ? sub : sub.label
+                                const targetId = typeof sub === 'string' ? 'services' : sub.target
                                 return (
                                   <button
                                     key={j}
@@ -397,16 +443,15 @@ export function Navbar() {
                                         setOpenMobile(false);
                                         setTimeout(() => scrollTo(targetId), 300);
                                       } else {
-                                        handleNavClick("services");
+                                        handleNavClick('services')
                                       }
                                     }}
                                     className="text-left text-white/50 text-[14px] hover:text-[#C8FF00] bg-transparent border-none py-1.5 cursor-pointer transition-colors"
                                   >
                                     {label}
                                   </button>
-                                );
+                                )
                               })}
-
                             </div>
                           </div>
                         )
@@ -419,9 +464,9 @@ export function Navbar() {
           ))}
           <div className="mt-8">
             <button
-              onClick={() => handleNavClick("contact")}
+              onClick={() => handleNavClick('contact')}
               className="w-full rounded-full py-4 text-black font-semibold text-[16px] transition-transform hover:scale-[1.02] cursor-pointer"
-              style={{ background: "#C8FF00", border: "none", fontFamily: "var(--font-main)" }}
+              style={{ background: '#C8FF00', border: 'none', fontFamily: 'var(--font-main)' }}
             >
               Let's Talk
             </button>
@@ -446,5 +491,5 @@ export function Navbar() {
         </div>
       </aside>
     </>
-  );
+  )
 }
