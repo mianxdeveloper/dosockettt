@@ -120,8 +120,71 @@ const trustIndicators = [
   { icon: Clock, label: "Avg. Response Time", value: "< 2hrs" }
 ];
 
+const designDetailData: Record<string, any> = {
+  "ui-ux": {
+    title: "UI/UX Design",
+    subtitle: "Architecture of Experience",
+    description: "We craft digital ecosystems where every interaction is purposeful. By blending behavioral science with world-class aesthetics, we create interfaces that don't just look stunning—they feel like second nature.",
+    icon: Figma,
+    image: "https://images.unsplash.com/photo-1586717791821-3f44a563cc4c?q=80&w=2070",
+    details: [
+      "User Behavioral Research",
+      "Interactive Prototyping",
+      "Design System Development",
+      "Information Architecture",
+      "Usability Testing",
+      "Accessibility Audit (WCAG)"
+    ]
+  },
+  "brand-identity": {
+    title: "Brand Identity",
+    subtitle: "The Soul of Your Business",
+    description: "A brand is a promise kept. We develop visual identities that command authority and evoke emotion, ensuring your company is not just seen, but remembered and trusted.",
+    icon: Palette,
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071",
+    details: [
+      "Logo & Iconography",
+      "Color Theory & Typography",
+      "Brand Voice & Guidelines",
+      "Marketing Collateral",
+      "Social Media Identity",
+      "Brand Strategy Workshops"
+    ]
+  },
+  "graphic-design": {
+    title: "Graphic Design",
+    subtitle: "High-Impact Communication",
+    description: "In a world of infinite scrolls, we create visual anchors. Our graphic systems translate complex messages into clear, compelling narratives that drive action and market performance.",
+    icon: Layout,
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=1974",
+    details: [
+      "Digital Ad Campaign Creative",
+      "Print & Editorial Design",
+      "Large Format Layouts",
+      "Infographic Systems",
+      "Presentation Design",
+      "Merchandise Design"
+    ]
+  },
+  "motion-design": {
+    title: "Motion Design",
+    subtitle: "Fluidity in Motion",
+    description: "Motion is the pulse of modern design. We use movement to bridge the gap between static concepts and living experiences, adding a layer of sophisticated polish that captivates and guides.",
+    icon: Rocket,
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070",
+    details: [
+      "Product Interaction Motion",
+      "Brand Stings & Intros",
+      "Explainer Animations",
+      "Lottie File Optimization",
+      "3D Kinetic Typography",
+      "Video Post-Production"
+    ]
+  }
+};
+
 export function Design() {
-  const { openContact } = useApp();
+  const { openContact, openDetail } = useApp();
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activeSection, setActiveSection] = useState<string>("ui-ux");
@@ -190,7 +253,7 @@ export function Design() {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center pt-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(200,255,0,0.05)_0%,transparent_70%)]" />
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
@@ -205,12 +268,12 @@ export function Design() {
               </span>
             </div>
 
-            <h1 className="text-7xl md:text-[9rem] font-black mb-12 leading-[0.85] tracking-tighter">
+            <h1 className="text-5xl md:text-7xl font-black mb-12 leading-[0.85] tracking-tighter">
               AESTHETIC <br />
               <span className="text-[#C8FF00] [text-shadow:0_0_30px_rgba(200,255,0,0.3)]">INTELLIGENCE</span>
             </h1>
 
-            <p className="text-lg md:text-2xl text-white/40 max-w-2xl mx-auto leading-relaxed font-medium mb-16">
+            <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed font-normal mb-16">
               Our design laboratory pushes the boundaries of visual communication and digital craftsmanship.
             </p>
           </div>
@@ -224,14 +287,14 @@ export function Design() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-20 px-6 border-y border-white/5 bg-white/[0.02]">
+      <section className="py-20 px-[5%] border-y border-white/5 bg-white/[0.02]">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {trustIndicators.map((item, idx) => (
               <div key={idx} className="text-center">
                 <item.icon className="w-8 h-8 text-[#C8FF00] mx-auto mb-4 opacity-60" />
                 <div className="text-3xl font-black mb-2">{item.value}</div>
-                <div className="text-xs uppercase tracking-wider text-white/40 font-bold">{item.label}</div>
+                <div className="text-xs uppercase tracking-wider text-white/40 font-normal">{item.label}</div>
               </div>
             ))}
           </div>
@@ -243,7 +306,7 @@ export function Design() {
         <section
           key={section.id}
           id={section.id}
-          className="py-32 md:py-48 px-6 relative z-10 border-t border-white/5 first:border-t-0"
+          className="py-32 md:py-48 px-[5%] relative z-10 border-t border-white/5 first:border-t-0"
         >
           <div className="max-w-[1400px] mx-auto">
             <div className={`flex flex-col lg:flex-row gap-16 lg:gap-24 items-start ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
@@ -266,7 +329,7 @@ export function Design() {
                         {section.title}
                       </h2>
 
-                      <p className="text-xl text-white/40 mb-12 leading-relaxed font-medium">
+                      <p className="text-xl text-white/40 mb-12 leading-relaxed font-normal">
                         {section.description}
                       </p>
 
@@ -276,20 +339,20 @@ export function Design() {
                             <div className="text-4xl font-black text-[#C8FF00] mb-1 inline-block">
                               {stat.value}
                             </div>
-                            <div className="text-[11px] uppercase font-bold text-white/30 tracking-wider mt-1">{stat.label}</div>
+                            <div className="text-[11px] uppercase font-normal text-white/30 tracking-wider mt-1">{stat.label}</div>
                             <div className="text-[10px] text-[#C8FF00]/50 mt-1">{stat.trend}</div>
                           </div>
                         ))}
                       </div>
 
                       <button
-                        onClick={() => openContact(`Project: ${section.title}`)}
+                        onClick={() => openDetail(designDetailData[section.id])}
                         className="group relative flex items-center gap-6 px-4 py-2"
                       >
                         <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#C8FF00] group-hover:border-[#C8FF00] group-hover:text-black transition-all duration-500">
                           <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </div>
-                        <span className="text-sm font-black uppercase tracking-wider group-hover:text-[#C8FF00] transition-colors">
+                        <span className="text-sm font-bold uppercase tracking-wider group-hover:text-[#C8FF00] transition-colors">
                           Explore {section.title}
                         </span>
                       </button>
@@ -309,8 +372,8 @@ export function Design() {
                       <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#C8FF00] mb-6 group-hover:scale-110 group-hover:bg-[#C8FF00] group-hover:text-black transition-all duration-500">
                         <feature.icon size={24} />
                       </div>
-                      <h4 className="text-xl font-black mb-2 uppercase tracking-tight">{feature.name}</h4>
-                      <p className="text-sm text-white/30 leading-relaxed">{feature.description}</p>
+                      <h4 className="text-xl font-bold mb-2 uppercase tracking-tight">{feature.name}</h4>
+                      <p className="text-sm text-white/30 leading-relaxed font-normal">{feature.description}</p>
                       <div className="w-8 h-px bg-white/10 group-hover:w-full group-hover:bg-[#C8FF00] transition-all duration-500 mt-4" />
                     </div>
                   ))}
@@ -318,7 +381,7 @@ export function Design() {
                   {/* Feature Showcase Card */}
                   <div
                     className="md:col-span-2 mt-2 aspect-[2.2/1] rounded-3xl bg-gradient-to-br from-[#C8FF00]/5 to-transparent border border-[#C8FF00]/10 flex items-center justify-center relative overflow-hidden group cursor-pointer"
-                    onClick={() => openContact(`Featured: ${section.title}`)}
+                    onClick={() => openDetail(designDetailData[section.id])}
                   >
                     <div className="absolute inset-0 opacity-5">
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle,#C8FF00_1px,transparent_1px)] bg-[length:20px_20px]" />
@@ -328,7 +391,7 @@ export function Design() {
                       <div className="text-6xl font-black mb-3 opacity-20 group-hover:opacity-100 transition-all uppercase tracking-tighter text-[#C8FF00]">
                         {section.id.split('-')[0]}
                       </div>
-                      <div className="text-[10px] uppercase font-bold tracking-[0.3em] text-white/40 group-hover:text-white/60 transition-colors">
+                      <div className="text-[10px] uppercase font-normal tracking-[0.3em] text-white/40 group-hover:text-white/60 transition-colors">
                         Visual Module
                       </div>
                     </div>
@@ -347,7 +410,7 @@ export function Design() {
       ))}
 
       {/* Achievements Section */}
-      <section className="py-32 px-6 border-t border-white/5 bg-white/[0.01]">
+      <section className="py-32 px-[5%] border-t border-white/5 bg-white/[0.01]">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-20">
             <span className="text-[#C8FF00] font-black tracking-[0.2em] text-xs uppercase mb-4 block">Accolades</span>
@@ -363,7 +426,7 @@ export function Design() {
                 className="text-center p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-[#C8FF00]/20 transition-all group"
               >
                 <achievement.icon className="w-12 h-12 text-[#C8FF00] mx-auto mb-4 opacity-60 group-hover:opacity-100 transition-opacity" />
-                <div className="text-base font-black uppercase tracking-tight mb-2">{achievement.label}</div>
+                <div className="text-base font-bold uppercase tracking-tight mb-2">{achievement.label}</div>
                 <div className="text-xs text-white/30">{achievement.year}</div>
               </div>
             ))}
@@ -372,7 +435,7 @@ export function Design() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-40 px-6 text-center border-t border-white/5 bg-gradient-to-b from-[#030303] to-[#050505]">
+      <section className="py-40 px-[5%] text-center border-t border-white/5 bg-gradient-to-b from-[#030303] to-[#050505]">
         <div className="max-w-[1400px] mx-auto">
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">

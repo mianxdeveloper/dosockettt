@@ -19,18 +19,23 @@ const ContactModal = lazy(() => import("./components/ContactModal").then(m => ({
 const CookieConsent = lazy(() => import("./components/CookieConsent").then(m => ({ default: m.CookieConsent })));
 const Chatbot = lazy(() => import("./components/Chatbot").then(m => ({ default: m.Chatbot })));
 const Design = lazy(() => import("./components/Design").then(m => ({ default: m.Design })));
+const Development = lazy(() => import("./components/Development").then(m => ({ default: m.Development })));
+const DigitalMarketing = lazy(() => import("./components/DigitalMarketing").then(m => ({ default: m.DigitalMarketing })));
+const DetailModal = lazy(() => import("./components/DetailModal").then(m => ({ default: m.DetailModal })));
 
 
 interface AppContextType {
   openContact: (title?: string) => void;
   showToast: (msg: string) => void;
   scrollTo: (id: string) => void;
+  openDetail: (data: any) => void;
 }
 
 export const AppContext = createContext<AppContextType>({
   openContact: () => { },
   showToast: () => { },
   scrollTo: () => { },
+  openDetail: () => { },
 });
 
 export const useApp = () => useContext(AppContext);
@@ -60,9 +65,17 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailData, setDetailData] = useState<any>(null);
+
   const openContact = (title = "Let's Talk") => {
     setContactTitle(title);
     setContactOpen(true);
+  };
+
+  const openDetail = (data: any) => {
+    setDetailData(data);
+    setDetailOpen(true);
   };
 
   const showToast = (msg: string) => {
@@ -82,7 +95,7 @@ export default function App() {
   };
 
   return (
-    <AppContext.Provider value={{ openContact, showToast, scrollTo }}>
+    <AppContext.Provider value={{ openContact, showToast, scrollTo, openDetail }}>
       <div className="w-full" style={{ background: "var(--dark-bg)", color: "var(--text-white)" }}>
         <style>{`
           html { scroll-behavior: smooth; }
@@ -113,6 +126,7 @@ export default function App() {
           <CookieConsent />
           <Chatbot />
           <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} title={contactTitle} />
+          <DetailModal isOpen={detailOpen} onClose={() => setDetailOpen(false)} data={detailData} onStartProject={() => openContact(`Project: ${detailData?.title}`)} />
         </Suspense>
 
         {/* Premium Bottom Blur for Scrolling */}
@@ -138,7 +152,7 @@ export default function App() {
                 <Testimonials />
                 {/* <Partners /> */}
                 <Services />
-                <Blog />
+                {/* <Blog /> */}
               </Suspense>
             </>
           } />
@@ -161,6 +175,20 @@ export default function App() {
             <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
               <div style={{ minHeight: "80vh" }}>
                 <Design />
+              </div>
+            </Suspense>
+          } />
+          <Route path="/development" element={
+            <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+              <div style={{ minHeight: "80vh" }}>
+                <Development />
+              </div>
+            </Suspense>
+          } />
+          <Route path="/digital-marketing" element={
+            <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+              <div style={{ minHeight: "80vh" }}>
+                <DigitalMarketing />
               </div>
             </Suspense>
           } />

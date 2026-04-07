@@ -32,13 +32,27 @@ const serviceCategories = [
     title: "DEVELOPMENT",
     subtitle: "Web & Mobile Solutions",
     icon: Code,
-    links: ["Web Design & Development", "eCommerce Development", "Landing Page Development", "Mobile App Design & Development", "Website Maintenance & Support", "Competitor Research & Analysis"]
+    links: [
+      { label: "Web Design & Development", target: "web-architecture" },
+      { label: "eCommerce Development", target: "ecommerce" },
+      { label: "Landing Page Development", target: "web-architecture" },
+      { label: "Mobile App Design & Development", target: "mobile-apps" },
+      { label: "Website Maintenance & Support", target: "maintenance" },
+      { label: "Competitor Research & Analysis", target: "maintenance" }
+    ]
   },
   {
     title: "DIGITAL MARKETING",
     subtitle: "Growth & Strategy",
     icon: Megaphone,
-    links: ["Search Engine Optimization (SEO)", "Social Media Marketing", "Paid Advertising (Google Ads, Meta Ads)", "Content Marketing & Copywriting", "Email Marketing", "Digital Strategy"]
+    links: [
+      { label: "Search Engine Optimization (SEO)", target: "seo" },
+      { label: "Social Media Marketing", target: "social-media-ads" },
+      { label: "Paid Advertising (Google Ads, Meta Ads)", target: "social-media-ads" },
+      { label: "Content Marketing & Copywriting", target: "content-copywriting" },
+      { label: "Email Marketing", target: "digital-strategy" },
+      { label: "Digital Strategy", target: "digital-strategy" }
+    ]
   }
 ];
 
@@ -179,9 +193,19 @@ export function Navbar() {
                                       <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-[#C8FF00] transition-colors duration-300 group-hover/col:bg-[#C8FF00] group-hover/col:text-black">
                                         <IconDef size={20} />
                                       </div>
-                                      <h3 className="text-white flex items-center gap-2 font-semibold text-[17px] hover:text-[#C8FF00] transition-colors cursor-pointer group m-0">
+                                      <button
+                                        onClick={() => {
+                                          const route = cat.title === "DESIGN" ? "/design" : 
+                                                        cat.title === "DEVELOPMENT" ? "/development" : 
+                                                        "/digital-marketing";
+                                          navigate(route);
+                                          setActiveDropdown(null);
+                                          window.scrollTo(0, 0);
+                                        }}
+                                        className="text-white bg-transparent border-none p-0 flex items-center gap-2 font-semibold text-[17px] hover:text-[#C8FF00] transition-colors cursor-pointer group m-0 appearance-none outline-none"
+                                      >
                                         {cat.title}
-                                      </h3>
+                                      </button>
                                     </div>
                                     <p className="text-white/50 text-[13px] m-0 leading-relaxed pl-[52px] -mt-1">{cat.subtitle}</p>
                                   </div>
@@ -195,6 +219,12 @@ export function Navbar() {
                                           onClick={() => {
                                             if (cat.title === "DESIGN") {
                                               navigate("/design");
+                                              setTimeout(() => scrollTo(targetId), 300);
+                                            } else if (cat.title === "DEVELOPMENT") {
+                                              navigate("/development");
+                                              setTimeout(() => scrollTo(targetId), 300);
+                                            } else if (cat.title === "DIGITAL MARKETING") {
+                                              navigate("/digital-marketing");
                                               setTimeout(() => scrollTo(targetId), 300);
                                             } else {
                                               handleNavClick("services");
@@ -332,10 +362,20 @@ export function Navbar() {
                         const IconDef = cat.icon;
                         return (
                           <div key={i} className="pl-4 border-l border-white/10 mb-2">
-                            <div className="flex items-center gap-2 mb-2">
+                            <button 
+                              onClick={() => {
+                                const route = cat.title === "DESIGN" ? "/design" : 
+                                              cat.title === "DEVELOPMENT" ? "/development" : 
+                                              "/digital-marketing";
+                                navigate(route);
+                                setOpenMobile(false);
+                                window.scrollTo(0, 0);
+                              }}
+                              className="bg-transparent border-none p-0 flex items-center gap-2 mb-2 appearance-none outline-none text-left"
+                            >
                               <IconDef size={16} className="text-[#C8FF00]" />
-                              <p className="text-white/90 font-semibold m-0 text-[16px]">{cat.title}</p>
-                            </div>
+                              <p className="text-white/90 font-semibold m-0 text-[16px] hover:text-[#C8FF00] transition-colors">{cat.title}</p>
+                            </button>
                             <div className="flex flex-col gap-1 items-start pl-6">
                               {cat.links.map((sub, j) => {
                                 const label = typeof sub === "string" ? sub : sub.label;
@@ -346,6 +386,14 @@ export function Navbar() {
                                     onClick={() => {
                                       if (cat.title === "DESIGN") {
                                         navigate("/design");
+                                        setOpenMobile(false);
+                                        setTimeout(() => scrollTo(targetId), 300);
+                                      } else if (cat.title === "DEVELOPMENT") {
+                                        navigate("/development");
+                                        setOpenMobile(false);
+                                        setTimeout(() => scrollTo(targetId), 300);
+                                      } else if (cat.title === "DIGITAL MARKETING") {
+                                        navigate("/digital-marketing");
                                         setOpenMobile(false);
                                         setTimeout(() => scrollTo(targetId), 300);
                                       } else {
